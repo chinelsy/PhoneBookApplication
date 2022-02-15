@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PhoneBook.Configuration\PhoneBook.Configuration.csproj" />
+    <ProjectReference Include="..\PhoneBook.Entities\PhoneBook.Entities.csproj" />
+    <ProjectReference Include="..\PhoneBook.Repository\PhoneBook.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
