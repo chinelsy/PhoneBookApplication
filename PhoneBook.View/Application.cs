@@ -18,35 +18,41 @@ namespace PhoneBook.View
                     {
                         //Validation for Name and Number
                         case "1":
-                                start:
-                                var name = PhoneValidation.ConfirmNameValidation("name");
-                                if (string.IsNullOrEmpty(name))
-                                    goto start;
+                            start:
+                            var name = PhoneValidation.ConfirmNameValidation("name");
+                            if (string.IsNullOrEmpty(name))
+                                goto start;
 
-                                begin:
-                                var number = PhoneValidation.ValidatePhoneNumber("number");
-                                if (string.IsNullOrEmpty(number))
-                                    goto begin;
-                                var newContact = new Contact 
-                                {
-                                    Name = name,
-                                    Number = number
-                                };
-                                phoneContacts.AddContact(newContact);
+                            begin:
+                            var number = PhoneValidation.ValidatePhoneNumber("number");
+                            if (string.IsNullOrEmpty(number))
+                                goto begin;
+
+                            var id = phoneContacts.GetLastContactById() + 1;
+                            var newContact = new Contact
+                            {
+                                Name = name,
+                                Number = number,
+                                Id = id
+                            };
+                            phoneContacts.AddContact(newContact);
                             break;
 
                         case "2":
-                           phoneContacts.Contacts();
+                            phoneContacts.GetAllContacts();
                             break;
 
                         case "3":
                             Console.WriteLine(" Contact number to Search");
-                            var Searchnumber = Console.ReadLine();
-                            phoneContacts.DisplayContact(Searchnumber);
+                            var searchNumber = Console.ReadLine();
+                            phoneContacts.DisplayContact(searchNumber);
                             break;
 
                         case "4":
-                            phoneContacts.DisplayContacts();
+                            Console.WriteLine("Contact to update with the id");
+                           var contactId = Int32.Parse(Console.ReadLine());
+                            phoneContacts.UpdateContact(contactId);
+                            //var id = phoneContacts.UpdateContact(0);
                             break;
 
                         case "5":
