@@ -1,4 +1,5 @@
-﻿using PhoneBook.Entities.Model;
+﻿using PhoneBook.Configuration;
+using PhoneBook.Entities.Model;
 using PhoneBook.Logic;
 using System;
 
@@ -12,6 +13,7 @@ namespace PhoneBook.View
             {
                 var userInput = Console.ReadLine();
                 var phoneContacts = new PhoneContacts();
+                var seedData = new SeedData();
                 while (true)
                 {
                     switch (userInput)
@@ -36,6 +38,7 @@ namespace PhoneBook.View
                                 Id = id
                             };
                             phoneContacts.AddContact(newContact);
+                            seedData.CheckDuplicate("field");
                             break;
 
                         case "2":

@@ -54,6 +54,11 @@ namespace PhoneBook.Logic
             }
         }
 
+        public static object GetDuplicates()
+        {
+            throw new NotImplementedException();
+        }
+
         //This method searches for a given contact by Alphbate
         //named: bobo
         //searchphrase: b

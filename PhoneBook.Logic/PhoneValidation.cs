@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PhoneBook.Configuration;
+using PhoneBook.Entities.Model;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PhoneBook.Logic
@@ -7,8 +10,11 @@ namespace PhoneBook.Logic
     {
         //Donot leave any option blank
         //Validation for Name
+
         public static string ConfirmNameValidation(string field)
         {
+            var seedData = new SeedData();
+
             Console.WriteLine("Contact name");
             var name = Console.ReadLine();
 
