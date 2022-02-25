@@ -1,7 +1,5 @@
 ﻿using PhoneBook.Configuration;
-using PhoneBook.Entities.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PhoneBook.Logic
@@ -13,8 +11,6 @@ namespace PhoneBook.Logic
 
         public static string ConfirmNameValidation(string field)
         {
-            var seedData = new SeedData();
-
             Console.WriteLine("Contact name");
             var name = Console.ReadLine();
 
@@ -57,5 +53,26 @@ namespace PhoneBook.Logic
             //return true;
             return number;
         }
+       /* public static bool CheckDuplicate(string name, string number)
+        {
+            //var seedData = new SeedData();
+            var contacts = GetAllContacts();
+            var contact = contacts.FirstOrDefault(c => c.Name == name || c.Number == number);
+            if (contact is null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            // Console.WriteLine(name, number);
+            
+        }
+
+        private static object GetAllContacts()
+        {
+            throw new NotImplementedException();
+        }*/
     }
 }

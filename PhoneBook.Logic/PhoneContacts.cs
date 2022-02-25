@@ -18,21 +18,18 @@ namespace PhoneBook.Logic
         public PhoneContacts()
         {
             _contact = SeedData.GetAllContacts().ToList();
-            //_contact = (List<Contact>)SeedData.GetAllContacts();
         }
 
+        public void AddContact(Contact contact)
+        {
+            _contact.Add(contact);
+        }
         public void GetAllContacts()
         {
             foreach (var contact in _contact)
             {
                 DisplayContactDetails(contact);
             }
-
-        }
-
-        public void AddContact(Contact contact)
-        {
-            _contact.Add(contact);
         }
 
         public int GetLastContactById() 
@@ -40,44 +37,13 @@ namespace PhoneBook.Logic
             var lastElemnt = _contact.Last();
             return lastElemnt.Id;
         }
-
-        public void DisplayContact(string number)
-        {
-            var contact = _contact.FirstOrDefault(c => c.Number == number);
-            if (contact == null)
-            {
-                Console.WriteLine("Contact not found");
-            }
-            else
-            {
-                DisplayContactDetails(contact);
-            }
-        }
-
-        public static object GetDuplicates()
-        {
-            throw new NotImplementedException();
-        }
-
-        //This method searches for a given contact by Alphbate
-        //named: bobo
-        //searchphrase: b
-        public void DisplayMatchingContacts(string searchPhrase)
-        {
-            var matchingContact = _contact.Where(c => c.Name.Contains(searchPhrase)).ToList();
-            foreach (var contact in matchingContact)
-            {
-                DisplayContactDetails(contact);
-            }
-        }
-         
+        
         public void RemoveContact(string name)
         {
             var contactToRemove = _contact.AsEnumerable().Where
-                (c => c.Name == name).First();
+                (c => c.Name.ToLower() == name.ToLower()).First(); 
             _contact.Remove(contactToRemove);
         }
-
 
         public void UpdateContact(int id)
         {
@@ -93,19 +59,9 @@ namespace PhoneBook.Logic
         }
     }
 }
-
-
-
- 
-
-
-
-
-/* public void DisplayContacts()
-        {
-            foreach (var contact in _contact)
-            {
-                DisplayContactDetails(contact);
-       //phoneContacts.DisplayContacts();
-            }
-        }*/
+          /*  public int GetLastContact() 
+         {
+             var lastElemnt = _contact.Last();
+             return lastElemnt.Id;
+         }
+*/

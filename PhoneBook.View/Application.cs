@@ -1,19 +1,26 @@
 ﻿using PhoneBook.Configuration;
 using PhoneBook.Entities.Model;
 using PhoneBook.Logic;
+using PhoneBook.Repository;
 using System;
 
 namespace PhoneBook.View
 {
-    public static class Application
+
+    public class Application
     {
-        public static void RunApplication()
+        private readonly IEntryContact<Contact> _contact;
+        private readonly IPhoneContactRepo<Contact> _contactRepo;
+        public Application(IEntryContact<Contact> contact, IPhoneContactRepo<Contact> contactRepo)
+        {
+            _contact = contact;
+            _contactRepo = contactRepo;
+        }
+        public void RunApplication()
         {
             try
             {
                 var userInput = Console.ReadLine();
-                var phoneContacts = new PhoneContacts();
-                var seedData = new SeedData();
                 while (true)
                 {
                     switch (userInput)
@@ -30,44 +37,47 @@ namespace PhoneBook.View
                             if (string.IsNullOrEmpty(number))
                                 goto begin;
 
-                            var id = phoneContacts.GetLastContactById() + 1;
+                            var id = _contact.GetLastContactById() + 1;
                             var newContact = new Contact
                             {
                                 Name = name,
                                 Number = number,
                                 Id = id
                             };
-                            phoneContacts.AddContact(newContact);
-                            seedData.CheckDuplicate("field");
-                            break;
+                            var result = SeedData.IsDuplicate(name, number);
+                           if (!result)
+                                _contact.AddContact(newContact);
+
+
+                                break;
 
                         case "2":
-                            phoneContacts.GetAllContacts();
+                            _contact.GetAllContacts();
                             break;
 
                         case "3":
                             Console.WriteLine(" Contact number to Search");
                             var searchNumber = Console.ReadLine();
-                            phoneContacts.DisplayContact(searchNumber);
+
+                            _contactRepo.DisplayContact(searchNumber);
                             break;
 
                         case "4":
                             Console.WriteLine("Contact to update with the id");
-                           var contactId = Int32.Parse(Console.ReadLine());
-                            phoneContacts.UpdateContact(contactId);
-                            //var id = phoneContacts.UpdateContact(0);
+                            var contactId = Int32.Parse(Console.ReadLine());
+                            _contact.UpdateContact(contactId);
                             break;
 
                         case "5":
                             Console.WriteLine("Search for Contact");
                             var searchPhrase = Console.ReadLine();
-                            phoneContacts.DisplayMatchingContacts(searchPhrase);
+                            _contactRepo.DisplayMatchingContacts(searchPhrase);
                             break;
 
                         case "6":
                             Console.WriteLine("enter the contact name to delete");
                             var contact = Console.ReadLine();
-                            phoneContacts.RemoveContact(contact);
+                            _contact.RemoveContact(contact);
                             Console.WriteLine("Deleted");
                             break;
 
